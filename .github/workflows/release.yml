@@ -53,6 +53,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          # Else checkout's GITHUB_TOKEN overrides MIRROR_TOKEN on push
+          persist-credentials: false
       - env:
           TOKEN: ${{ secrets.MIRROR_TOKEN }}
         run: |
