@@ -1,5 +1,2 @@
 packages:
   - software/apps/*
-# pnpm blocks build scripts by default, esbuild needs its own for platform binary
-allowBuilds:
-  esbuild: true
