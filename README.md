@@ -125,7 +125,8 @@ pnpm --filter robot1-web build
 One version for the whole repo, [semver](https://semver.org). Before 1.0.0,
 minor releases can break things. Each tag also pushes `ui/` and `python/` to
 read-only mirrors, [HHART-UI](https://github.com/HHART-Robotics/HHART-UI) and
-[HHART-Python](https://github.com/HHART-Robotics/HHART-Python).
+[HHART-Python](https://github.com/HHART-Robotics/HHART-Python). Open issues and PRs
+here, not on the mirrors.
 
 ## Citing
 

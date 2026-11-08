@@ -1,7 +1,10 @@
 # Contributing
 
-Issues and PRs welcome. Search existing issues first. Report security issues
-privately, see [SECURITY.md](SECURITY.md).
+Open issues and PRs in this repo (HHART-Robotics/HHART). HHART-Python and
+HHART-UI are read-only mirrors and don't take issues or PRs.
+
+Search existing issues before opening one. Report security issues privately,
+see [SECURITY.md](SECURITY.md).
 
 ## Scope
 
