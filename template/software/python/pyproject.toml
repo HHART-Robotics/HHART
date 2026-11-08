@@ -7,7 +7,7 @@ name = "robot1"
 version = "0.1.0"
 # In setup.py instead, colcon's literal_eval chokes on setuptools' SpecifierSet
 dynamic = ["requires-python"]
-# Version pinned at install time (README, Use)
+# Version pinned at install time (README, Run)
 # rclpy from sourced ROS 2, only needed to run robot1-robot
 dependencies = ["hhart", "websockets"]
 
