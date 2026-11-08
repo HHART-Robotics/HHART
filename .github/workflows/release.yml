@@ -16,8 +16,8 @@ jobs:
       contents: write
       id-token: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: The tag matches every version and has a changelog entry
@@ -29,7 +29,7 @@ jobs:
           grep -q "__version__ = \"$v\"" python/src/hhart/__init__.py
           grep -q "\"version\": \"$v\"" ui/package.json
           grep -q "^## \[$v\]" CHANGELOG.md
-      - uses: astral-sh/setup-uv@v6
+      - uses: astral-sh/setup-uv@v10
       # Wheel from source tree, sdist lacks ../template
       - run: uv build --sdist python --out-dir dist && uv build --wheel python --out-dir dist
       # Before the GitHub release, so a failed upload leaves no release
@@ -43,22 +43,7 @@ jobs:
 
   mirror:
     needs: release
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        part:
-          - { prefix: ui, repo: HHART-UI }
-          - { prefix: python, repo: HHART-Python }
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          # Else checkout's GITHUB_TOKEN overrides MIRROR_TOKEN on push
-          persist-credentials: false
-      - env:
-          TOKEN: ${{ secrets.MIRROR_TOKEN }}
-        run: |
-          git subtree split --prefix=${{ matrix.part.prefix }} -b split
-          url="https://x-access-token:${TOKEN}@github.com/HHART-Robotics/${{ matrix.part.repo }}.git"
-          git push "$url" split:main --force
-          git push "$url" "split:refs/tags/${GITHUB_REF_NAME}"
+    uses: ./.github/workflows/mirror.yml
+    with:
+      tag: ${{ github.ref_name }}
+    secrets: inherit

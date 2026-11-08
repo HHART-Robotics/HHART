@@ -1,0 +1,36 @@
+name: mirror
+
+on:
+  workflow_call:
+    inputs:
+      tag: { type: string, required: true }
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Tag to mirror, e.g. v0.1.1
+        required: true
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        part:
+          - { prefix: ui, repo: HHART-UI }
+          - { prefix: python, repo: HHART-Python }
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.tag }}
+          fetch-depth: 0
+          # Else checkout's GITHUB_TOKEN overrides MIRROR_TOKEN on push
+          persist-credentials: false
+      # No --force, so mirroring an old tag can't rewind a mirror
+      - env:
+          TOKEN: ${{ secrets.MIRROR_TOKEN }}
+          TAG: ${{ inputs.tag }}
+        run: |
+          git subtree split --prefix=${{ matrix.part.prefix }} -b split
+          url="https://x-access-token:${TOKEN}@github.com/HHART-Robotics/${{ matrix.part.repo }}.git"
+          git push "$url" split:main
+          git push "$url" "split:refs/tags/${TAG}"
