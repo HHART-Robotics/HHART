@@ -94,7 +94,7 @@ hhart new myrobot
 With colcon:
 
 ```bash
-cd ~/ws/src && git clone --branch v0.1.0 https://github.com/HHART-Robotics/HHART.git hhart
+cd ~/ws/src && git clone --branch v0.1.1 https://github.com/HHART-Robotics/HHART.git hhart
 cd ~/ws && colcon build --packages-select hhart && source install/setup.bash
 ros2 run hhart hhart new myrobot --into src
 ```

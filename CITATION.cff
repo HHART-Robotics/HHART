@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use HHART, please cite the paper below."
 title: "HHART: Hybrid Hexagonal Architecture for Robotic Technologies"
 type: software
-version: 0.1.0
+version: 0.1.1
 license: Apache-2.0
 repository-code: "https://github.com/HHART-Robotics/HHART"
 authors:
