@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.venv/
+node_modules/
+software/apps/web/dist/
+software/apps/api/recordings/
+.pio/
+# colcon output when workspace is repo's parent
+build/
+install/
+log/

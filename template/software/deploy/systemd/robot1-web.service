@@ -1,0 +1,13 @@
+# Needs dist/, pnpm build at repo root or copy from laptop
+[Unit]
+Description=robot1 operator interface
+After=network.target
+
+[Service]
+User=robot
+ExecStart=/usr/bin/python3 -m http.server 8080 --directory /home/robot/robot1/software/apps/web/dist
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

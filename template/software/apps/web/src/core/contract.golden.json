@@ -1,0 +1,191 @@
+[
+  {
+    "type": "describe",
+    "version": "0.1.0",
+    "messages": [
+      {
+        "name": "status",
+        "tier": "curated",
+        "direction": "out",
+        "fields": [
+          {
+            "name": "connected",
+            "type": "bool"
+          },
+          {
+            "name": "route",
+            "type": "str"
+          }
+        ]
+      },
+      {
+        "name": "fault",
+        "tier": "curated",
+        "direction": "out",
+        "fields": [
+          {
+            "name": "device",
+            "type": "str"
+          },
+          {
+            "name": "text",
+            "type": "str"
+          },
+          {
+            "name": "active",
+            "type": "bool"
+          }
+        ]
+      },
+      {
+        "name": "error",
+        "tier": "curated",
+        "direction": "out",
+        "fields": [
+          {
+            "name": "text",
+            "type": "str"
+          }
+        ]
+      },
+      {
+        "name": "motors",
+        "tier": "curated",
+        "direction": "out",
+        "fields": [
+          {
+            "name": "left_pct",
+            "type": "int"
+          },
+          {
+            "name": "right_pct",
+            "type": "int"
+          }
+        ]
+      },
+      {
+        "name": "capability",
+        "tier": "curated",
+        "direction": "out",
+        "fields": [
+          {
+            "name": "name",
+            "type": "str"
+          },
+          {
+            "name": "running",
+            "type": "bool"
+          },
+          {
+            "name": "error",
+            "type": "str or null"
+          }
+        ]
+      },
+      {
+        "name": "drive",
+        "tier": "curated",
+        "direction": "in",
+        "fields": [
+          {
+            "name": "direction",
+            "type": "str"
+          },
+          {
+            "name": "pct",
+            "type": "int"
+          }
+        ]
+      },
+      {
+        "name": "stop",
+        "tier": "curated",
+        "direction": "in",
+        "fields": []
+      },
+      {
+        "name": "release",
+        "tier": "curated",
+        "direction": "in",
+        "fields": []
+      },
+      {
+        "name": "switch",
+        "tier": "curated",
+        "direction": "in",
+        "fields": [
+          {
+            "name": "name",
+            "type": "str"
+          },
+          {
+            "name": "running",
+            "type": "bool"
+          }
+        ]
+      },
+      {
+        "name": "battery",
+        "tier": "passthrough",
+        "direction": "out",
+        "fields": [
+          {
+            "name": "voltage_v",
+            "unit": "V"
+          },
+          {
+            "name": "charge",
+            "unit": "0 to 1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "status",
+    "connected": true,
+    "route": "text"
+  },
+  {
+    "type": "fault",
+    "device": "text",
+    "text": "text",
+    "active": true
+  },
+  {
+    "type": "error",
+    "text": "text"
+  },
+  {
+    "type": "motors",
+    "left_pct": 3,
+    "right_pct": 3
+  },
+  {
+    "type": "capability",
+    "name": "text",
+    "running": true,
+    "error": "text"
+  },
+  {
+    "type": "drive",
+    "direction": "text",
+    "pct": 3
+  },
+  {
+    "type": "stop"
+  },
+  {
+    "type": "release"
+  },
+  {
+    "type": "switch",
+    "name": "text",
+    "running": true
+  },
+  {
+    "type": "battery",
+    "voltage_v": 1.5,
+    "charge": 1.5
+  }
+]

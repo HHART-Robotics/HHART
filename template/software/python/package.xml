@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>robot1</name>
+  <version>0.1.0</version>
+  <description>robot1 on HHART: core, adapters and roots. Same package pip installs.</description>
+  <maintainer email="you@example.com">you</maintainer>
+  <license>TODO</license>
+  <exec_depend>hhart</exec_depend>
+  <exec_depend>python3-websockets</exec_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>rosidl_runtime_py</exec_depend>
+  <test_depend>python3-pytest</test_depend>
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

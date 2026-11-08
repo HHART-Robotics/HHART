@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use HHART, please cite the paper below."
+title: "HHART: Hybrid Hexagonal Architecture for Robotic Technologies"
+type: software
+version: 0.1.0
+license: Apache-2.0
+repository-code: "https://github.com/HHART-Robotics/HHART"
+authors:
+  - family-names: Russell
+    given-names: Jackson
+preferred-citation:
+  type: conference-paper
+  title: "HHART: A Hybrid of Hexagonal Architecture and ROS 2 for Industry-Linked University Robotics Research"
+  authors:
+    - family-names: Russell
+      given-names: Jackson
+    - family-names: Kodagoda
+      given-names: Sarath
+  collection-title: "Proceedings of the Australasian Conference on Robotics and Automation (ACRA 2026)"
+  conference:
+    name: "Australasian Conference on Robotics and Automation (ACRA 2026)"
+    city: Canberra
+    country: AU
+  year: 2026

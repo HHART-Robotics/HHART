@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "robot1"
+version = "0.1.0"
+# In setup.py instead, colcon's literal_eval chokes on setuptools' SpecifierSet
+dynamic = ["requires-python"]
+# hhart not on PyPI yet, install from git first (README, Use)
+# rclpy from sourced ROS 2, only needed to run robot1-robot
+dependencies = ["hhart", "websockets"]
+
+[project.optional-dependencies]
+embedded = ["pyserial-asyncio"]
+dev = ["pytest"]
+# colcon test only runs pytest via extra named test
+test = ["pytest"]
+
+[project.scripts]
+robot1-bridge = "robot1.apps.bridge:main"
+robot1-robot = "robot1.apps.robot:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

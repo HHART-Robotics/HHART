@@ -1,0 +1,12 @@
+# Pin everything (Rule 10). Import with:
+#   vcs import src < src/robot1/software/ros/robot1.repos
+repositories:
+  hhart:
+    type: git
+    url: https://github.com/HHART-Robotics/HHART.git
+    version: vHHART_VERSION
+  # Third-party drivers, pinned to tag or commit, e.g.:
+  # lidar_driver:
+  #   type: git
+  #   url: https://github.com/VENDOR/lidar_driver_ros2.git
+  #   version: TAG_OR_COMMIT

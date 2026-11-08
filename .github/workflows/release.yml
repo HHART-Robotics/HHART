@@ -1,0 +1,57 @@
+name: release
+
+on:
+  push:
+    tags: ["v*.*.*"]
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+
+  release:
+    needs: ci
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: The tag matches every version and has a changelog entry
+        run: |
+          v="${GITHUB_REF_NAME#v}"
+          grep -q "^version = \"$v\"" python/pyproject.toml
+          grep -q "<version>$v</version>" python/package.xml
+          grep -q "^version: $v" CITATION.cff
+          grep -q "__version__ = \"$v\"" python/src/hhart/__init__.py
+          grep -q "\"version\": \"$v\"" ui/package.json
+          grep -q "^## \[$v\]" CHANGELOG.md
+      - uses: astral-sh/setup-uv@v6
+      # Wheel from source tree, sdist lacks ../template
+      - run: uv build --sdist python --out-dir dist && uv build --wheel python --out-dir dist
+      - run: awk -v v="## [${GITHUB_REF_NAME#v}]" 'index($0, v) == 1 {f=1; next} /^## \[/ {f=0} f' CHANGELOG.md > notes.md
+      - run: gh release create "$GITHUB_REF_NAME" dist/* --title "$GITHUB_REF_NAME" --notes-file notes.md
+        env:
+          GH_TOKEN: ${{ github.token }}
+      # PyPI later: pypa/gh-action-pypi-publish, trusted publishing
+
+  mirror:
+    needs: release
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        part:
+          - { prefix: ui, repo: HHART-UI }
+          - { prefix: python, repo: HHART-Python }
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - env:
+          TOKEN: ${{ secrets.MIRROR_TOKEN }}
+        run: |
+          git subtree split --prefix=${{ matrix.part.prefix }} -b split
+          url="https://x-access-token:${TOKEN}@github.com/HHART-Robotics/${{ matrix.part.repo }}.git"
+          git push "$url" split:main --force
+          git push "$url" "split:refs/tags/${GITHUB_REF_NAME}"

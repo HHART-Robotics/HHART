@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security problem, or something that stops a robot from stopping
+    url: https://github.com/HHART-Robotics/HHART/security/advisories/new
+    about: Please report it privately rather than in an issue.

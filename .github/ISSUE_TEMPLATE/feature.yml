@@ -1,0 +1,11 @@
+name: Idea
+description: Something you'd like HHART to do.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like?
+      description: The problem you hit and how you'd solve it. Rough is fine.
+    validations:
+      required: true

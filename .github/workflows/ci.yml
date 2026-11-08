@@ -1,0 +1,82 @@
+name: ci
+
+on: [push, pull_request, workflow_call]
+
+jobs:
+  python:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.10", "3.12"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: astral-sh/setup-uv@v6
+      - run: uv pip install --system -e "python[dev]"
+      - run: pytest python/tests
+      - run: uv pip install --system -e "template/software/python[dev]"
+      - run: pytest
+        working-directory: template/software/python
+      - run: hhart check template
+
+  wheel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v6
+      - run: uv build --wheel python --out-dir dist
+      - name: hhart new works from the wheel alone
+        run: |
+          uv venv /tmp/v && uv pip install --python /tmp/v dist/*.whl
+          cd /tmp && /tmp/v/bin/hhart new probe && test -f probe/software/python/src/probe/core/session.py
+
+  ros-jazzy:
+    runs-on: ubuntu-latest
+    container: ros:jazzy
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: src/hhart
+      - shell: bash
+        run: |
+          apt-get update && apt-get install -y python3-pytest
+          PYTHONPATH=src/hhart/python/src python3 -m hhart new probe --into src
+          rosdep update && rosdep install --from-paths src --ignore-src -y
+          source /opt/ros/jazzy/setup.bash
+          colcon build
+          source install/setup.bash
+          ros2 run hhart hhart check src/probe
+          ros2 pkg executables probe
+          cd src/hhart/template/software/python && python3 -m pytest tests/ros
+
+  firmware:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v6
+      - run: uvx --from platformio pio test -e native
+        working-directory: template/software/firmware/robot1
+
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm --filter robot1-web build

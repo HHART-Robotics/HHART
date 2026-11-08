@@ -1,0 +1,12 @@
+{
+  "name": "robot1",
+  "private": true,
+  "packageManager": "pnpm@11.4.0",
+  "scripts": {
+    "dev": "pnpm --filter robot1-web dev",
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "typecheck": "pnpm -r typecheck",
+    "api": "pnpm --filter robot1-api start"
+  }
+}

@@ -1,0 +1,18 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 50
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+    diff_drive_controller:
+      type: diff_drive_controller/DiffDriveController
+
+diff_drive_controller:
+  ros__parameters:
+    left_wheel_names: ["left_wheel_joint"]
+    right_wheel_names: ["right_wheel_joint"]
+    wheel_separation: 0.2  # Must match TRACK_M in core/ros_messages.py
+    wheel_radius: 0.05
+    base_frame_id: base_link
+    publish_rate: 20.0
+    # Stop tier between firmware watchdog and host deadman (Rule 8)
+    cmd_vel_timeout: 0.5

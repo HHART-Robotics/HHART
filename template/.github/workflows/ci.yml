@@ -1,0 +1,66 @@
+name: ci
+
+on: [push, pull_request]
+
+env:
+  HHART: "hhart @ git+https://github.com/HHART-Robotics/HHART.git@vHHART_VERSION#subdirectory=python"
+
+jobs:
+  python:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v6
+      - run: uv pip install --system "${{ env.HHART }}" -e "software/python[dev]"
+      - run: pytest
+        working-directory: software/python
+      - run: hhart check .
+
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      # No --frozen-lockfile until first install commits pnpm-lock.yaml
+      - run: pnpm install
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build
+
+  firmware:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v6
+      - run: uvx --from platformio pio test -e native
+        working-directory: software/firmware/robot1
+
+  ros-jazzy:
+    runs-on: ubuntu-latest
+    container: ros:jazzy
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: src/robot1
+      - shell: bash
+        run: |
+          apt-get update && apt-get install -y python3-vcstool
+          vcs import src < src/robot1/software/ros/robot1.repos
+          rosdep update && rosdep install --from-paths src --ignore-src -y
+          source /opt/ros/jazzy/setup.bash
+          colcon build
+          colcon test --packages-select robot1 && colcon test-result --verbose

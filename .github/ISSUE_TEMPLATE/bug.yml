@@ -1,0 +1,21 @@
+name: Bug
+description: Something's broken.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you ran, what you got and what you expected. Paste the output.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: How do we see it?
+      description: Steps to reproduce. A fresh `hhart new` robot on the loopback is ideal, but anything helps.
+  - type: input
+    id: setup
+    attributes:
+      label: Version and setup
+      placeholder: hhart 0.1.0, uv pip, Windows 11, Python 3.12, no ROS

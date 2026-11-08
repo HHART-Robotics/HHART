@@ -1,0 +1,21 @@
+# Edit User and ROS_WS
+[Unit]
+Description=robot1 device graph and root (full ROS 2)
+After=network.target
+Conflicts=robot1.service
+
+[Service]
+User=robot
+Environment=ROS_WS=/home/robot/ws
+# $$ is systemd's literal $
+ExecStart=/bin/bash -c 'source /opt/ros/jazzy/setup.bash && \
+  source $$ROS_WS/install/setup.bash && \
+  export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST && \
+  exec ros2 launch robot1_bringup robot1.launch.py'
+KillSignal=SIGINT
+TimeoutStopSec=15
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
