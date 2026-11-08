@@ -5,7 +5,10 @@ robot's codebase so ROS stays on the robot and the logic can be tested without
 it.
 
 Accepted at the Australasian Conference on Robotics and Automation
-([ACRA 2026](#citing)). v0.1.0, ROS 2 Jazzy.
+([ACRA 2026](#citing)). v0.1.0. Licensed under [Apache-2.0](LICENSE).
+
+**ROS support: Only ROS 2 Jazzy confirmed for now.** The core, UI and tests run without
+ROS on any OS.
 
 - Robot logic lives in a core with no ROS or I/O.
 - ROS and hardware sit behind adapters.
@@ -142,5 +145,9 @@ Australasian Conference on Robotics and Automation (ACRA 2026)*, Canberra, 2026.
 
 ## Licence
 
-Apache 2.0, see [LICENSE](LICENSE) and [NOTICE](NOTICE). Robots made with
-`hhart new` can license their own code however they like.
+Everything in this repo (`python/`, `ui/` and `template/`) is licensed under the
+[Apache License 2.0](LICENSE) (Apache-2.0). See [NOTICE](NOTICE). The
+HHART-Python and HHART-UI mirrors carry the same licence.
+
+In a robot made with `hhart new`, the files that came from the template stay
+Apache-2.0. The robot's own code can use any licence.

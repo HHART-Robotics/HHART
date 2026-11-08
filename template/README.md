@@ -2,7 +2,8 @@
 
 Starting point for a new robot. `hhart new` copies this folder and renames
 `robot1`. It runs on a laptop without hardware or ROS using the loopback
-device. Paths below are relative to `software/`.
+device. ROS parts support ROS 2 Jazzy only for now. Paths below are relative
+to `software/`.
 
 ## Evaluation
 
@@ -182,6 +183,7 @@ you don't use one.
 
 ## Licence
 
-Files from the HHART template are Apache 2.0 (`LICENSES/Apache-2.0.txt`),
-Copyright 2026 Jackson Russell and the HHART contributors, and may have been
-modified. Add your own licence as `LICENSE` at the root.
+Files from the HHART template are licensed under Apache-2.0
+(`LICENSES/Apache-2.0.txt`), Copyright 2026 Jackson Russell and the HHART
+contributors, and may have been modified. Add your own licence as `LICENSE` at
+the root.

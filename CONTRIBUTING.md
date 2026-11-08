@@ -55,7 +55,7 @@ tokens, no new colours. Firmware: no dynamic allocation, loop never blocks.
 
 ## Licence
 
-Apache 2.0. Contributions are under the same licence (section 5), no CLA.
+HHART is Apache-2.0. Contributions are under the same licence (section 5), no CLA.
 Signing off (`git commit -s`) certifies the
 [DCO](https://developercertificate.org). Third-party code has to be under a
 compatible licence (Apache-2.0, MIT, BSD, ISC, Zlib) with its notice kept. No

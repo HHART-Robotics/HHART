@@ -8,6 +8,7 @@ repository-code: "https://github.com/HHART-Robotics/HHART"
 authors:
   - family-names: Russell
     given-names: Jackson
+    email: Jackson.Russell@student.uts.edu.au
 preferred-citation:
   type: conference-paper
   title: "HHART: A Hybrid of Hexagonal Architecture and ROS 2 for Industry-Linked University Robotics Research"
