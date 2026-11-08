@@ -11,8 +11,10 @@ jobs:
   release:
     needs: ci
     runs-on: ubuntu-latest
+    environment: pypi
     permissions:
       contents: write
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -30,11 +32,14 @@ jobs:
       - uses: astral-sh/setup-uv@v6
       # Wheel from source tree, sdist lacks ../template
       - run: uv build --sdist python --out-dir dist && uv build --wheel python --out-dir dist
+      # Before the GitHub release, so a failed upload leaves no release
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist/
       - run: awk -v v="## [${GITHUB_REF_NAME#v}]" 'index($0, v) == 1 {f=1; next} /^## \[/ {f=0} f' CHANGELOG.md > notes.md
       - run: gh release create "$GITHUB_REF_NAME" dist/* --title "$GITHUB_REF_NAME" --notes-file notes.md
         env:
           GH_TOKEN: ${{ github.token }}
-      # PyPI later: pypa/gh-action-pypi-publish, trusted publishing
 
   mirror:
     needs: release

@@ -3,7 +3,7 @@ name: ci
 on: [push, pull_request]
 
 env:
-  HHART: "hhart @ git+https://github.com/HHART-Robotics/HHART.git@vHHART_VERSION#subdirectory=python"
+  HHART: "hhart==HHART_VERSION"
 
 jobs:
   python:

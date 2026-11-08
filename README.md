@@ -87,7 +87,7 @@ With pip:
 
 ```text
 uv venv && source .venv/bin/activate     # Windows: .venv\Scripts\activate
-uv pip install "hhart @ git+https://github.com/HHART-Robotics/HHART.git@v0.1.0#subdirectory=python"
+uv pip install hhart
 hhart new myrobot
 ```
 

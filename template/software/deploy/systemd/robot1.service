@@ -1,7 +1,7 @@
 # Edit User and paths
 # One-off setup as that user, from repo (~/robot1). --system-site-packages keeps rclpy for ROS switch:
 #   uv venv --system-site-packages ~/robot1/.venv
-#   uv pip install --python ~/robot1/.venv "hhart @ git+https://github.com/HHART-Robotics/HHART.git@vHHART_VERSION#subdirectory=python" -e "software/python[embedded]"
+#   uv pip install --python ~/robot1/.venv "hhart==HHART_VERSION" -e "software/python[embedded]"
 [Unit]
 Description=robot1 bridge (embedded)
 After=network.target

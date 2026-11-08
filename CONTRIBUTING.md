@@ -72,5 +72,5 @@ From `main`:
 3. Commit `chore(repo): release vX.Y.Z`, then
    `git tag -a vX.Y.Z -m vX.Y.Z && git push origin vX.Y.Z`.
 
-The release workflow checks the versions, builds, publishes the GitHub release
-and updates the mirrors. Tags are never moved.
+The release workflow checks the versions, builds, publishes to PyPI and the
+GitHub release, and updates the mirrors. Tags are never moved.

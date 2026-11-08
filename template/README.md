@@ -117,7 +117,7 @@ without ROS.
 ```text
 cd software/python
 uv venv && source .venv/bin/activate     # Windows: .venv\Scripts\activate
-uv pip install -e ".[dev]" "hhart @ git+https://github.com/HHART-Robotics/HHART.git@vHHART_VERSION#subdirectory=python"
+uv pip install -e ".[dev]" "hhart==HHART_VERSION"
 pytest
 hhart check ../..
 robot1-bridge --port loopback
