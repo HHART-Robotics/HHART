@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python }}
-      - uses: astral-sh/setup-uv@v10
+      - uses: astral-sh/setup-uv@v10.3.3  # No major tags past v7
       - run: uv pip install --system -e "python[dev]"
       - run: pytest python/tests
       - run: uv pip install --system -e "template/software/python[dev]"
@@ -30,7 +30,7 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - uses: astral-sh/setup-uv@v10
+      - uses: astral-sh/setup-uv@v10.3.3
       - run: uv build --wheel python --out-dir dist
       - name: hhart new works from the wheel alone
         run: |
@@ -63,7 +63,7 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - uses: astral-sh/setup-uv@v10
+      - uses: astral-sh/setup-uv@v10.3.3
       - run: uvx --from platformio pio test -e native
         working-directory: template/software/firmware/robot1
 

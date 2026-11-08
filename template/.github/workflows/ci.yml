@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - uses: astral-sh/setup-uv@v10
+      - uses: astral-sh/setup-uv@v10.3.3  # No major tags past v7
       - run: uv pip install --system "${{ env.HHART }}" -e "software/python[dev]"
       - run: pytest
         working-directory: software/python
@@ -45,7 +45,7 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - uses: astral-sh/setup-uv@v10
+      - uses: astral-sh/setup-uv@v10.3.3
       - run: uvx --from platformio pio test -e native
         working-directory: software/firmware/robot1
 
