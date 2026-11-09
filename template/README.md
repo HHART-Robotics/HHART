@@ -155,26 +155,32 @@ way, `robot1-web.service` serves the UI on port 8080.
 Notes:
 
 - Motors stay off until `firmware/robot1/src/hw_watchdog.cpp` is implemented
-  for your board (Rule 8).
+  for the board (Rule 8).
 - After an operator stop, ROS and tests can't drive until the operator sends
   `release` (Rule 3).
 - A device that keeps publishing the same value is reported as stale (Rule 6).
 - Prefer standard ROS messages. Custom ones need a `robot1_interfaces` package.
 
-## Making it yours
+## Adapting to other robots
 
-1. `python/src/robot1/core/contract.py`: your messages, then `hhart contract`.
-2. `core/ros_messages.py`: measure `MAX_MPS` and `TRACK_M` on the robot. Match
-   them in `controllers.yaml` and `robot1.urdf`.
-3. `core/session.py`: set `DEADMAN_PERIOD_S` and `DEADMAN_TIMEOUT_S` so T + P
-   fits your stop bound.
-4. Hardware. Embedded: `adapters/firmware_link.py`, `applyMotors` in
-   `firmware/robot1/src/main.cpp` and `src/hw_watchdog.cpp`. Full ROS 2:
-   drivers in `ros/robot1.repos`, `adapters/ros/devices.py`, and your hardware
-   interface in place of `mock_components`.
-5. `apps/web/src/robot/scene.ts`: your 3D model and environment. Your own views
-   go in `apps/web/src/`.
-6. `deploy/systemd/`: user and paths.
+Start with the contract and work down to the hardware.
+
+1. Declare the robot's messages in `python/src/robot1/core/contract.py`, then
+   run `hhart contract` to regenerate `CONTRACT.md` and the golden fixture.
+2. Measure `MAX_MPS` and `TRACK_M` in `core/ros_messages.py` on the robot and
+   use the same values in `controllers.yaml` and `robot1.urdf`.
+3. Set `DEADMAN_PERIOD_S` and `DEADMAN_TIMEOUT_S` in `core/session.py`.
+   Together they have to fit inside the robot's stop bound.
+4. Connect the hardware. On the embedded route that's
+   `adapters/firmware_link.py`, `applyMotors` in
+   `firmware/robot1/src/main.cpp` and the watchdog in `src/hw_watchdog.cpp`.
+   On the full ROS 2 route, add the drivers to `ros/robot1.repos`, wire them up
+   in `adapters/ros/devices.py` and replace `mock_components` in `robot1.urdf`
+   with the robot's hardware interface.
+5. Put the 3D model and environment in `apps/web/src/robot/scene.ts`. Other
+   views go in `apps/web/src/`.
+6. Change the user, paths and serial port in `deploy/systemd/` to match the
+   robot.
 
 ## Agentic workflow
 
@@ -185,5 +191,5 @@ you don't use one.
 
 Files from the HHART template are licensed under Apache-2.0
 (`LICENSES/Apache-2.0.txt`), Copyright 2026 Jackson Russell and the HHART
-contributors, and may have been modified. Add your own licence as `LICENSE` at
+contributors, and may have been modified. Add the robot's own licence as `LICENSE` at
 the root.

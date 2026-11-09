@@ -64,7 +64,7 @@ flowchart TB
     uikit["ui/<br/>@hhart/ui"]
     tpl["template/"]
   end
-  subgraph robot["Your robot, software/"]
+  subgraph robot["Robot repo, software/"]
     direction LR
     rpy["python/"]
     rweb["apps/web/"]
