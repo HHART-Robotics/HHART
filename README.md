@@ -10,6 +10,14 @@ Accepted at the Australasian Conference on Robotics and Automation
 **ROS support: Only ROS 2 Jazzy confirmed for now.** The core, UI and tests run without
 ROS on any OS.
 
+> [!NOTE]
+> Some features of the HHART tool are currently unstable and may not work
+> properly, as the tool wasn't part of the original plan. I'm working through
+> a lot of bugs to push what will hopefully be a more stable release. In the
+> meantime, the [template](template/) is the best guide to how a robot is laid
+> out: the core, the adapters, the operator UI in
+> [apps/web](template/software/apps/web/) and the tests that check the rules.
+
 - Robot logic lives in a core with no ROS or I/O.
 - ROS and hardware sit behind adapters.
 - Operators use a browser UI over a WebSocket contract, no ROS.
